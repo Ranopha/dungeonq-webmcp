@@ -3,11 +3,11 @@
 ## Fastest path: live WebMCP collaboration
 
 1. Open [DungeonQ](https://dungeonq.kq7dn7jb6r.chatgpt.site) in ChatGPT's in-app browser.
-2. Ask the agent: “Inspect this page's tools. Simulate the loaded synthetic scenario and request human review. Stop at the human approval gate.”
-3. Confirm that the agent can call `dungeonq_simulate` and `dungeonq_approval_request`, but cannot approve.
+2. Click **Run judge proof**. Confirm `DENY`, `UI = WEBMCP · MATCH`, `UNAPPROVED_APPLY · STATE_TRANSITION_INVALID`, populated Evidence, and `APPROVAL_PENDING`.
+3. Confirm that only **Human approve** is enabled while Apply remains disabled; the WebMCP surface contains no approval tool.
 4. Click **Human approve** in the page.
 5. Ask the agent to apply the approved browser-local effect, verify its receipt, compensate it, and summarize the evidence digest.
-6. Confirm that compensation adds evidence instead of deleting the original apply receipt.
+6. Confirm that a tampered receipt is rejected and compensation adds evidence instead of deleting the original apply receipt.
 
 ## Bring your own dungeon
 

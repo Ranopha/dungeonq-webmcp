@@ -18,6 +18,8 @@ const ui = Object.freeze({
   scenarioFile: element("scenario-file"),
   scenarioStatus: element("scenario-status"),
   validationMessage: element("validation-message"),
+  judgeQuickRun: element("judge-quick-run"),
+  judgeGuide: element("judge-guide"),
   loadExample: element("load-example"),
   validateScenario: element("validate-scenario"),
   resetLab: element("reset-lab"),
@@ -30,6 +32,8 @@ const ui = Object.freeze({
   assertionScore: element("assertion-score"),
   assertionLabel: element("assertion-label"),
   inputDigest: element("input-digest"),
+  adapterParity: element("adapter-parity"),
+  adapterDigest: element("adapter-digest"),
   lifecycleTrack: element("lifecycle-track"),
   runSimulation: element("run-simulation"),
   requestApproval: element("request-approval"),
@@ -62,6 +66,7 @@ const STATE_ORDER = Object.freeze([
 let session = null;
 let currentScenario = null;
 let lastEvidence = null;
+let lastAdapterParity = null;
 let editorDirty = false;
 let busy = false;
 
@@ -144,6 +149,7 @@ function updateLifecycle(state) {
 function updateActions(snapshot) {
   const locked = busy || editorDirty;
   const executable = snapshot.simulation?.proposal?.executableAfterApproval === true;
+  ui.judgeQuickRun.disabled = busy;
   ui.runSimulation.disabled = locked || snapshot.state !== "VALIDATED";
   ui.requestApproval.disabled = locked || snapshot.state !== "SIMULATED" || !executable;
   ui.humanApprove.disabled = locked || snapshot.state !== "APPROVAL_PENDING";
@@ -220,6 +226,18 @@ async function render() {
     replaceList(ui.invariantList, [{ label: "Awaiting deterministic evaluation" }]);
   }
 
+  if (lastAdapterParity) {
+    ui.adapterParity.textContent = lastAdapterParity.matched ? "UI = WEBMCP · MATCH" : "ADAPTER MISMATCH";
+    ui.adapterParity.dataset.tone = lastAdapterParity.matched ? "success" : "error";
+    ui.adapterDigest.textContent = `${shortDigest(lastAdapterParity.inputDigest)} · ${shortDigest(lastAdapterParity.proposalDigest)}`;
+    ui.adapterDigest.title = `${lastAdapterParity.inputDigest} · ${lastAdapterParity.proposalDigest}`;
+  } else {
+    ui.adapterParity.textContent = "AWAITING RUN";
+    delete ui.adapterParity.dataset.tone;
+    ui.adapterDigest.textContent = "UI and WebMCP will replay the same pack independently.";
+    ui.adapterDigest.removeAttribute("title");
+  }
+
   replaceList(
     ui.auditTimeline,
     snapshot.audit.length
@@ -247,7 +265,10 @@ async function activateScenario(candidate) {
   currentScenario = admitted.scenario;
   ui.scenarioEditor.value = `${JSON.stringify(admitted.scenario, null, 2)}\n`;
   lastEvidence = null;
+  lastAdapterParity = null;
   editorDirty = false;
+  ui.judgeGuide.textContent = "Runs Overlay → adapter parity → blocked apply → review request, then stops for a human.";
+  delete ui.judgeGuide.dataset.tone;
   ui.adversarialResult.textContent = "Run a simulation to unlock a negative proof.";
   delete ui.adversarialResult.dataset.tone;
   await render();
@@ -258,6 +279,65 @@ async function createSessionFromEditor() {
   const scenario = await activateScenario(ui.scenarioEditor.value);
   setMessage(`Validated ${scenario.scenarioId}. No external data was sent.`, "success");
   return scenario;
+}
+
+async function simulateWithAdapterParity(actor) {
+  const primary = await session.simulate(actor);
+  const mirror = await admitScenarioPack(currentScenario);
+  const agentRun = await mirror.session.simulate({
+    actorId: "syn-webmcp-parity-001",
+    actorType: "AGENT"
+  });
+  const matched =
+    primary.inputDigest === agentRun.inputDigest &&
+    canonicalJson(primary.decision) === canonicalJson(agentRun.decision) &&
+    primary.proposal.digest === agentRun.proposal.digest;
+  lastAdapterParity = Object.freeze({
+    matched,
+    inputDigest: primary.inputDigest,
+    proposalDigest: primary.proposal.digest
+  });
+  return primary;
+}
+
+async function runUnapprovedApplyProbe(actorId = "syn-negative-probe-001") {
+  const before = session.getSnapshot();
+  try {
+    await session.apply({
+      actorId,
+      actorType: "SYSTEM",
+      proposalDigest: before.simulation.proposal.digest,
+      revision: before.simulation.proposal.revision,
+      idempotencyKey: `${actorId}-${before.simulation.proposal.revision}`
+    });
+    ui.adversarialResult.textContent = "FAILED · prohibited apply unexpectedly succeeded";
+    ui.adversarialResult.dataset.tone = "error";
+    return false;
+  } catch (error) {
+    const after = session.getSnapshot();
+    const unchanged = after.state === before.state && after.receipts.length === before.receipts.length;
+    ui.adversarialResult.textContent = `${unchanged ? "BLOCKED" : "FAILED"} · UNAPPROVED_APPLY · ${errorMessage(error)} · session ${unchanged ? "unchanged" : "changed"}`;
+    ui.adversarialResult.dataset.tone = unchanged ? "success" : "error";
+    return unchanged;
+  }
+}
+
+async function runJudgeProofToHumanGate() {
+  await loadBuiltIn();
+  const simulation = await simulateWithAdapterParity({ actorId: "syn-quick-judge-001", actorType: "HUMAN" });
+  if (!lastAdapterParity?.matched) throw new Error("ADAPTER_PARITY_FAILED");
+  if (!(await runUnapprovedApplyProbe("syn-quick-negative-001"))) {
+    throw new Error("UNAPPROVED_APPLY_PROBE_FAILED");
+  }
+  if (!simulation.proposal.executableAfterApproval) {
+    ui.judgeGuide.textContent = "Decision and negative proof complete. This scenario intentionally exposes no executable effect.";
+    ui.judgeGuide.dataset.tone = "success";
+    return { stoppedAt: "NON_EXECUTABLE_PROPOSAL" };
+  }
+  await session.requestApproval({ actorId: "syn-quick-agent-001", actorType: "AGENT" });
+  ui.judgeGuide.textContent = "Proof ready: Overlay ran, digests match, unapproved apply was blocked. Human approval is required below.";
+  ui.judgeGuide.dataset.tone = "success";
+  return { stoppedAt: "HUMAN_UI" };
 }
 
 async function loadBuiltIn() {
@@ -311,7 +391,7 @@ const webMcpAdapter = createWebMcpAdapter({
       };
     },
     dungeonq_simulate: async () => {
-      await session.simulate({ actorId: "syn-webmcp-runner-001", actorType: "AGENT" });
+      await simulateWithAdapterParity({ actorId: "syn-webmcp-runner-001", actorType: "AGENT" });
       await render();
       return snapshotSummary(session.getSnapshot());
     },
@@ -361,6 +441,16 @@ const webMcpAdapter = createWebMcpAdapter({
 });
 
 ui.loadExample.addEventListener("click", () => perform(loadBuiltIn, "Built-in scenario loaded and validated."));
+ui.judgeQuickRun.addEventListener("click", async () => {
+  const result = await perform(
+    runJudgeProofToHumanGate,
+    "Judge proof generated. The workflow stopped at the separate human approval control."
+  );
+  if (result?.stoppedAt === "HUMAN_UI") {
+    ui.humanApprove.scrollIntoView({ behavior: "smooth", block: "center" });
+    ui.humanApprove.focus({ preventScroll: true });
+  }
+});
 ui.validateScenario.addEventListener("click", () =>
   perform(createSessionFromEditor, "Scenario contract is valid and ready to run.")
 );
@@ -392,8 +482,8 @@ ui.scenarioFile.addEventListener("change", async () => {
 
 ui.runSimulation.addEventListener("click", () =>
   perform(
-    () => session.simulate({ actorId: "syn-ui-judge-001", actorType: "HUMAN" }),
-    "Deterministic decision and assertions generated."
+    () => simulateWithAdapterParity({ actorId: "syn-ui-judge-001", actorType: "HUMAN" }),
+    "Deterministic decision, assertions, and adapter-conformance proof generated."
   )
 );
 ui.requestApproval.addEventListener("click", () =>
@@ -445,22 +535,8 @@ ui.probeUnapprovedApply.addEventListener("click", async () => {
   if (busy || !session) return;
   busy = true;
   updateActions(session.getSnapshot());
-  const before = session.getSnapshot();
   try {
-    await session.apply({
-      actorId: "syn-negative-probe-001",
-      actorType: "SYSTEM",
-      proposalDigest: before.simulation.proposal.digest,
-      revision: before.simulation.proposal.revision,
-      idempotencyKey: `syn-negative-unapproved-${before.simulation.proposal.revision}`
-    });
-    ui.adversarialResult.textContent = "FAILED · prohibited apply unexpectedly succeeded";
-    ui.adversarialResult.dataset.tone = "error";
-  } catch (error) {
-    const after = session.getSnapshot();
-    const unchanged = after.state === before.state && after.receipts.length === before.receipts.length;
-    ui.adversarialResult.textContent = `${unchanged ? "BLOCKED" : "FAILED"} · UNAPPROVED_APPLY · ${errorMessage(error)} · session ${unchanged ? "unchanged" : "changed"}`;
-    ui.adversarialResult.dataset.tone = unchanged ? "success" : "error";
+    await runUnapprovedApplyProbe();
   } finally {
     await render();
     busy = false;

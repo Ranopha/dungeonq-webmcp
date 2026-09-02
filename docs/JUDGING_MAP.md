@@ -3,7 +3,7 @@
 ## Three-minute live route
 
 1. **Problem and boundary, 20 seconds** — Point to `SYNTHETIC_SIMULATION_ONLY`: security automation needs proof and human authority, not another autonomous black box.
-2. **WebMCP-native admission, 30 seconds** — Ask the agent to inspect the page, call `dungeonq_scenario_admit` with a judge-authored pack, and simulate it. Show the input digest and tool surface changing.
+2. **Fast proof or WebMCP-native admission, 30 seconds** — Click **Run judge proof** to run Overlay, adapter parity, and an unapproved-apply probe before stopping at the human gate. Alternatively, ask the agent to call `dungeonq_scenario_admit` with a judge-authored pack and simulate it.
 3. **Human-agent gate, 45 seconds** — Let the agent request review. Observe that it has no approval tool. Use the visible Human approve control; then ask the agent to apply and verify the receipt.
 4. **Recovery with proof, 30 seconds** — Ask the agent to compensate. Show that the original receipt remains and a linked compensation receipt is appended.
 5. **Adversarial failure, 25 seconds** — Load Compound edge failure. Missing edge context forces `DENY`, and failure composition only removes capabilities.
@@ -15,6 +15,7 @@
 |---|---|---|
 | Scenario admission is closed and bounded | Demonstrated locally | Contract and malicious-input tests |
 | Same input and engine version are deterministic | Demonstrated locally | Golden digest and duplicate-run verification |
+| UI and WebMCP actor paths produce the same decision | Demonstrated in the public app | Live adapter-conformance strip plus actor-parity test |
 | Compound failure does not expand capabilities | Demonstrated locally | Exhaustive 127-combination property test |
 | Agent cannot self-approve | Demonstrated locally | Session negative test and no WebMCP approval tool |
 | Apply is exact and idempotent | Demonstrated locally | stale, replay, conflict, and before-state tests |

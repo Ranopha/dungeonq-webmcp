@@ -315,7 +315,7 @@ h1 em {
   color: var(--acid);
 }
 
-.agent-path-copy p:last-child {
+.agent-path-copy > p {
   margin-bottom: 0;
   color: var(--muted);
   font-size: 12px;
@@ -325,6 +325,32 @@ h1 em {
 .agent-path-copy code {
   color: var(--cyan);
   overflow-wrap: anywhere;
+}
+
+.judge-launch {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.judge-launch .button {
+  width: fit-content;
+  min-height: 44px;
+  padding-inline: 18px;
+}
+
+#judge-guide {
+  max-width: 390px;
+  color: var(--muted);
+  font: 600 9px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+#judge-guide[data-tone="success"] {
+  color: var(--acid);
+}
+
+#judge-guide[data-tone="error"] {
+  color: var(--red);
 }
 
 .agent-route {
@@ -758,6 +784,55 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+.adapter-proof {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.55fr) minmax(240px, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.adapter-proof small,
+.adapter-proof strong {
+  display: block;
+}
+
+.adapter-proof small {
+  margin-bottom: 5px;
+  color: var(--dim);
+  font: 600 9px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.1em;
+}
+
+.adapter-proof strong {
+  color: var(--muted);
+  font: 650 13px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.adapter-proof strong[data-tone="success"] {
+  color: var(--acid);
+}
+
+.adapter-proof strong[data-tone="error"] {
+  color: var(--red);
+}
+
+.adapter-proof code {
+  color: var(--cyan);
+  font: 10px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+
+.adapter-proof > span {
+  color: var(--dim);
+  font: 550 9px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: right;
+}
+
 .lifecycle {
   margin-bottom: 10px;
   padding: 22px;
@@ -1068,6 +1143,14 @@ footer div {
   .detail-grid,
   .evidence-grid {
     grid-template-columns: 1fr;
+  }
+
+  .adapter-proof {
+    grid-template-columns: 1fr;
+  }
+
+  .adapter-proof > span {
+    text-align: left;
   }
 
   .adversarial-card {

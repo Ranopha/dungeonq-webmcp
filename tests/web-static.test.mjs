@@ -17,6 +17,10 @@ test("judge-facing page has explicit synthetic boundary and no inline executable
   assert.match(html, /id="probe-unapproved-apply"/u);
   assert.match(html, /id="probe-tampered-receipt"/u);
   assert.match(html, /id="adversarial-result"/u);
+  assert.match(html, /id="judge-quick-run"/u);
+  assert.match(html, /id="judge-guide"/u);
+  assert.match(html, /id="adapter-parity"/u);
+  assert.match(html, /id="adapter-digest"/u);
   assert.match(html, /Bring your own dungeon/u);
   assert.match(html, /dungeonq_scenario_admit/u);
   assert.match(html, /Apache-2\.0/u);

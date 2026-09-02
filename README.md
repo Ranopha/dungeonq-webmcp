@@ -13,6 +13,10 @@ DungeonQ is a WebMCP-native synthetic security proving ground. A person or agent
 
 ![DungeonQ WebMCP-native synthetic proving ground](docs/screenshots/dungeonq-hero.png)
 
+For the fastest judge path, click **Run judge proof**. DungeonQ runs the Route Safety Overlay, independently replays the pack through the UI and WebMCP actor paths, proves their input／decision／proposal digests match, attempts an unapproved apply, and then stops at `APPROVAL_PENDING`. Only the visible **Human approve** control can continue.
+
+![Judge Quick Run stopped at the human approval gate](docs/screenshots/dungeonq-judge-quick-run.jpg)
+
 ## Why WebMCP matters here
 
 A visual dashboard alone can demonstrate one preloaded scenario. WebMCP lets a judge give DungeonQ a new synthetic environment and ask an agent to navigate it safely:
@@ -35,6 +39,7 @@ The registered tool surface changes after every state transition. There is delib
 - Governed state machine: simulate → request → separate human approval → apply to local synthetic state → receipt verification → append-only compensation.
 - Verifiable evidence bundle containing canonical input, command transcript, proposal, read-back, receipt, assertion, invariant, and audit digests.
 - Responsive browser lab with JSON editor／file import and evidence download.
+- One-click judge route that surfaces Overlay, adapter parity, negative proof, and Evidence before stopping at the human-only gate.
 - CLI runner suitable for CI and third-party scenario packs.
 - Progressive WebMCP adapter with judge-authored Scenario admission. An agent may admit, simulate, request review, or use an already approved effect; it is never given a human-approval tool.
 - Executable negative tests for stale approval, self-approval, idempotency conflict, tampering, malformed input, traversal, and compound-failure monotonicity.

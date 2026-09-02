@@ -97,6 +97,19 @@ test("evidence bundle is deterministic and exposes any protected-field tamper", 
   assert.deepEqual(await verifyEvidenceBundle(tampered), { valid: false, reason: "DIGEST_MISMATCH" });
 });
 
+test("human UI and agent adapter actors receive the same deterministic decision and proposal digest", async () => {
+  const scenario = await loadScenario();
+  const humanSession = await createLabSession(scenario);
+  const agentSession = await createLabSession(scenario);
+
+  const humanRun = await humanSession.simulate({ actorId: "syn-ui-parity-001", actorType: "HUMAN" });
+  const agentRun = await agentSession.simulate({ actorId: "syn-webmcp-parity-001", actorType: "AGENT" });
+
+  assert.equal(agentRun.inputDigest, humanRun.inputDigest);
+  assert.deepEqual(agentRun.decision, humanRun.decision);
+  assert.equal(agentRun.proposal.digest, humanRun.proposal.digest);
+});
+
 test("evidence verification checks nested receipt digests even if the outer digest is recomputed", async () => {
   const session = await createLabSession(await loadScenario());
   const simulation = await session.simulate({ actorId: "syn-judge-001", actorType: "HUMAN" });

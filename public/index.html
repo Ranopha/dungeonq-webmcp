@@ -71,6 +71,12 @@
             Give your agent a complete synthetic Scenario Pack. <code>dungeonq_scenario_admit</code> sends it through
             the same strict validator as the UI and CLI—then the available tools reshape at every state.
           </p>
+          <div class="judge-launch">
+            <button class="button button-primary" id="judge-quick-run" type="button">Run judge proof</button>
+            <output id="judge-guide" role="status" aria-live="polite">
+              Runs Overlay → adapter parity → blocked apply → review request, then stops for a human.
+            </output>
+          </div>
         </div>
         <ol class="agent-route" aria-label="Human and agent collaboration route">
           <li data-role="agent"><span>01</span><strong>Agent admits</strong><small>Strict contract</small></li>
@@ -94,9 +100,9 @@
           <label class="field-label" for="scenario-select">Built-in adversarial case</label>
           <div class="select-row">
             <select id="scenario-select">
-              <option value="honey-credential.json">Honey credential replay</option>
-              <option value="compound-pep-failure.json">Compound edge failure</option>
-              <option value="false-positive-recovery.json">Fresh-context recovery</option>
+              <option value="honey-credential.json">Honey replay — DENY + human gate</option>
+              <option value="compound-pep-failure.json">Compound edge failure — fail closed</option>
+              <option value="false-positive-recovery.json">Fresh-context recovery — bounded recovery</option>
             </select>
             <button class="button button-secondary" id="load-example" type="button">Load</button>
           </div>
@@ -148,6 +154,15 @@
               <span>Canonical SHA-256</span>
             </article>
           </div>
+
+          <article class="adapter-proof" aria-label="Adapter conformance proof">
+            <div>
+              <small>LIVE ADAPTER CONFORMANCE</small>
+              <strong id="adapter-parity">AWAITING RUN</strong>
+            </div>
+            <code id="adapter-digest">UI and WebMCP will replay the same pack independently.</code>
+            <span>Input digest + decision + proposal digest</span>
+          </article>
 
           <div class="lifecycle" aria-labelledby="lifecycle-heading">
             <div class="subheading-row">
