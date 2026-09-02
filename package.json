@@ -1,0 +1,58 @@
+{
+  "name": "dungeonq",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A WebMCP-native synthetic security proving ground with deterministic evidence and a human approval gate.",
+  "license": "Apache-2.0",
+  "author": "DungeonQ contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ranopha/dungeonq-webmcp.git"
+  },
+  "homepage": "https://dungeonq.kq7dn7jb6r.chatgpt.site",
+  "bugs": {
+    "url": "https://github.com/Ranopha/dungeonq-webmcp/issues"
+  },
+  "keywords": [
+    "webmcp",
+    "cybersecurity",
+    "deception",
+    "deterministic",
+    "synthetic-testing"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "start": "wrangler dev --config dist/server/wrangler.json",
+    "test": "node --test",
+    "verify": "node scripts/verify.mjs",
+    "audit": "node scripts/audit.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "npm test && npm run verify && npm run audit && npm run typecheck && npm run build",
+    "simulate": "node cli/run.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-server-dom-webpack": "19.2.8",
+    "vinext": "1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.54.3",
+    "@cloudflare/workers-types": "5.20260902.1",
+    "@openai/sites-vite-plugin": "0.2.0",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "@vitejs/plugin-rsc": "0.5.34",
+    "typescript": "5.9.3",
+    "vite": "8.2.2",
+    "wrangler": "4.128.0"
+  }
+}
