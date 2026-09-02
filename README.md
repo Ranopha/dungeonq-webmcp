@@ -5,6 +5,7 @@
 DungeonQ is a WebMCP-native synthetic security proving ground. A person or agent can bring a bounded `dungeonq.scenario/v1` environment, run the same deterministic defense engine in the browser or CLI, and inspect a replayable chain of decisions, human approval, receipts, verification, and compensation.
 
 - Live app: [dungeonq.kq7dn7jb6r.chatgpt.site](https://dungeonq.kq7dn7jb6r.chatgpt.site)
+- Demo video: [DungeonQ — Governed WebMCP Security Proving Ground](https://youtu.be/HPQ7bBFyIa0)
 - Challenge: OpenAI WebMCP Challenge
 - License: Apache-2.0
 - Maturity: P2 synthetically validated competition prototype

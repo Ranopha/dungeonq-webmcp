@@ -64,4 +64,4 @@ DungeonQ deliberately stops at synthetic validation. A production path would req
 - Live app: https://dungeonq.kq7dn7jb6r.chatgpt.site
 - Public source: https://github.com/Ranopha/dungeonq-webmcp
 - License: Apache-2.0
-- Demo video: pending public YouTube upload
+- Demo video: https://youtu.be/HPQ7bBFyIa0
