@@ -1,15 +1,17 @@
-# Judge testing guide
+# WebMCP Competition Profile testing guide
+
+The challenge has concluded. This guide reproduces the retained browser-local Proof Kernel; it is not a test of the separate DungeonQ host-diversion runtime.
 
 ## Fastest path: live WebMCP collaboration
 
 1. Open [DungeonQ](https://dungeonq.kq7dn7jb6r.chatgpt.site) in ChatGPT's in-app browser.
-2. Click **Run judge proof**. Confirm `DENY`, `UI = WEBMCP · MATCH`, `UNAPPROVED_APPLY · STATE_TRANSITION_INVALID`, populated Evidence, and `APPROVAL_PENDING`.
+2. Click **Run profile proof**. Confirm `DENY`, `UI = WEBMCP · MATCH`, `UNAPPROVED_APPLY · STATE_TRANSITION_INVALID`, populated Evidence, and `APPROVAL_PENDING`.
 3. Confirm that only **Human approve** is enabled while Apply remains disabled; the WebMCP surface contains no approval tool.
 4. Click **Human approve** in the page.
 5. Ask the agent to apply the approved browser-local effect, verify its receipt, compensate it, and summarize the evidence digest.
 6. Confirm that a tampered receipt is rejected and compensation adds evidence instead of deleting the original apply receipt.
 
-## Bring your own dungeon
+## Supply a bounded profile scenario
 
 Use any complete pack from `public/scenarios/` as a template, change its synthetic IDs／signals／failures, then ask the agent:
 
@@ -43,4 +45,4 @@ npm run simulate -- --scenario public/scenarios/honey-credential.json --lifecycl
 
 ## Honest boundary
 
-All effects are browser-local synthetic state transitions. The evidence proves deterministic behavior and protected-field integrity for this simulator; it does not prove real sensor truth, externally verified human identity, production isolation, or field effectiveness.
+All effects are browser-local synthetic state transitions. The evidence proves deterministic behavior and protected-field integrity for this profile; it does not prove a trusted host entry, diversion, persistent synthetic world, Wrong Ticket, real sensor truth, externally verified human identity, production isolation or field effectiveness.

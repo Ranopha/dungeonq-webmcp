@@ -1,6 +1,6 @@
 # Security boundary
 
-DungeonQ is a safe, synthetic evaluation harness. It is not an offensive-security toolkit and has no connector to real infrastructure.
+This WebMCP Competition Profile is a safe, synthetic evaluation harness. It is not the full DungeonQ runtime, an offensive-security toolkit or a connector to real infrastructure.
 
 ## Allowed use
 

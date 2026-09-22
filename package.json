@@ -1,8 +1,8 @@
 {
   "name": "dungeonq",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "A WebMCP-native synthetic security proving ground with deterministic evidence and a human approval gate.",
+  "description": "The concluded WebMCP competition profile and Proof Kernel for the DungeonQ defensive deception runtime.",
   "license": "Apache-2.0",
   "author": "DungeonQ contributors",
   "repository": {

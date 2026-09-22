@@ -11,6 +11,7 @@ const privateOwnerToken = String.fromCodePoint(108, 105, 117, 101, 110, 121, 97,
 const privatePathPrefix = ["", "Users", ""].join("/");
 const textExtensions = new Set([".css", ".html", ".json", ".md", ".mjs", ".ts", ".tsx"]);
 const findings = [];
+const allowedBrowserReferences = new Set(["https://github.com/Ranopha/dungeonq-astra"]);
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -49,7 +50,11 @@ for (const file of files) {
   }
 
   if (path === "public/index.html" || path.startsWith("public/assets/")) {
-    if (/\bhttps?:\/\//iu.test(content)) findings.push({ path, code: "BROWSER_REMOTE_REFERENCE" });
+    const contentWithoutAllowedReferences = [...allowedBrowserReferences].reduce(
+      (value, reference) => value.replaceAll(reference, ""),
+      content
+    );
+    if (/\bhttps?:\/\//iu.test(contentWithoutAllowedReferences)) findings.push({ path, code: "BROWSER_REMOTE_REFERENCE" });
     if (/(?:\.innerHTML\b|\.outerHTML\b|document\.write\s*\(|\beval\s*\(|new\s+Function\s*\()/u.test(content)) {
       findings.push({ path, code: "UNSAFE_BROWSER_SINK" });
     }

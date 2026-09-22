@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:dabfc892-2ed4-467b-bd45-a48ae393e21d",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-02T05:24:39.046Z",
+    "timestamp": "2026-09-22T01:42:48.000Z",
     "lifecycles": [
       {
         "phase": "build"
@@ -19,14 +19,14 @@
       }
     ],
     "component": {
-      "bom-ref": "dungeonq@0.1.0",
+      "bom-ref": "dungeonq@0.2.0",
       "type": "library",
       "name": "dungeonq",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "scope": "required",
       "author": "DungeonQ contributors",
-      "description": "A WebMCP-native synthetic security proving ground with deterministic evidence and a human approval gate.",
-      "purl": "pkg:npm/dungeonq@0.1.0",
+      "description": "The concluded WebMCP competition profile and Proof Kernel for the DungeonQ defensive deception runtime.",
+      "purl": "pkg:npm/dungeonq@0.2.0",
       "properties": [
         {
           "name": "cdx:npm:package:private",

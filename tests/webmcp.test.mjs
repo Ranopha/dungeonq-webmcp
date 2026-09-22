@@ -65,6 +65,10 @@ test("WebMCP adapter re-registers tools by state, bounds output, and cleans up r
   assert.equal(typeof output, "string");
   assert.equal(output.length <= 1_800, true);
 
+  adapter.refresh();
+  assert.equal(registrations.length, 3);
+  assert.equal(firstSignal.aborted, false);
+
   snapshot = { state: "APPROVED" };
   adapter.refresh();
   assert.equal(firstSignal.aborted, true);
@@ -94,4 +98,32 @@ test("WebMCP registration failure degrades to zero tools without breaking the br
   assert.doesNotThrow(() => adapter.refresh());
   assert.deepEqual(adapter.getActiveNames(), []);
   assert.deepEqual(changes.at(-1), []);
+});
+
+test("expected async registration rejection during unregistration is handled", async () => {
+  let snapshot = { state: "VALIDATED" };
+  const modelContext = {
+    registerTool(_tool, options) {
+      return new Promise((_resolve, reject) => {
+        options.signal.addEventListener("abort", () => {
+          const error = new Error("registration removed");
+          error.name = "AbortError";
+          reject(error);
+        });
+      });
+    }
+  };
+  const adapter = createWebMcpAdapter({
+    modelContext,
+    getSnapshot: () => snapshot,
+    handlers: {}
+  });
+
+  adapter.refresh();
+  snapshot = { state: "APPROVAL_PENDING" };
+  adapter.refresh();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(adapter.getActiveNames(), ["dungeonq_status", "dungeonq_evidence_export"]);
+  adapter.dispose();
+  await new Promise((resolve) => setImmediate(resolve));
 });

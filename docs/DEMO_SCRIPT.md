@@ -1,5 +1,7 @@
 # Public demo script — target 2:35
 
+> **Historical competition media plan.** This script preserves the concluded WebMCP submission narrative. It is not the current DungeonQ product story; see [PRODUCT_DIRECTION.md](PRODUCT_DIRECTION.md).
+
 Language: English. Output: 1920×1080, public YouTube, burned-in English captions plus `.srt`. Every screen must be captured from the public DungeonQ deployment or generated from repository-owned typography and shapes.
 
 | Time | Picture | Narration |

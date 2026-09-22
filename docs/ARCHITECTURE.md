@@ -1,6 +1,8 @@
 # Architecture and trust boundaries
 
-DungeonQ intentionally keeps one small kernel and several replaceable adapters.
+This repository contains the browser-local Proof Kernel from the concluded WebMCP Competition Profile. It is one supporting profile of the [DungeonQ defensive deception runtime](https://github.com/Ranopha/dungeonq-astra), which owns host adapters, session diversion, persistent worlds, world-only tickets, observation and finite adaptation. The kernel here intentionally has no authority to claim those runtime capabilities.
+
+Within this profile, DungeonQ keeps one small kernel and several replaceable adapters.
 
 ```text
 Scenario JSON / file / WebMCP object

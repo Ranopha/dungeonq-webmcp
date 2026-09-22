@@ -1,13 +1,15 @@
-# DungeonQ Competition Spec 0.1
+# DungeonQ WebMCP Competition Profile Spec 0.2
 
-- Status: Local validated competition prototype
+- Status: Concluded competition profile; locally validated Proof Kernel
 - Data classification: `SYNTHETIC_ONLY`
 - Execution authority: Browser／process-local simulated state only
-- Public release: Not yet authorized
+- Canonical product: [DungeonQ Deception Runtime](https://github.com/Ranopha/dungeonq-astra)
 
 ## 1. Product statement
 
-DungeonQ lets an evaluator test governed adaptive-deception decisions without granting access to a real environment. The product accepts a bounded synthetic Scenario Pack, produces a deterministic security overlay and effect proposal, enforces a visible human gate, and returns replayable integrity evidence.
+DungeonQ is a defensive deception runtime whose canonical journey diverts a designated suspicious session into a persistent synthetic world, provides useful world-only authority, records participant activity and permits bounded operator-approved adaptation.
+
+This repository is the concluded WebMCP Competition Profile. It lets an evaluator test reusable Proof Kernel properties without access to a real environment: bounded Scenario Pack admission, deterministic decisions, a visible human gate and replayable integrity evidence. Browser-local state is never evidence of host integration, diversion, a persistent world, a Wrong Ticket or production protection.
 
 The differentiator is falsifiability: a judge can edit expectations, inject control failures, tamper with receipts, remove WebMCP, or supply a new simulated environment and observe a bounded pass／fail result.
 
@@ -61,7 +63,7 @@ The differentiator is falsifiability: a judge can edit expectations, inject cont
 
 ## 6. Acceptance evidence
 
-The competition profile is acceptable when all of the following are captured from the same source revision:
+The concluded competition profile remains acceptable when all of the following are captured from the same source revision:
 
 1. all tests pass, including 127 compound-failure combinations;
 2. every golden scenario passes expected assertions and Evidence Bundle verification;

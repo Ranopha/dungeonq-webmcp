@@ -49,7 +49,7 @@ const TOOL_DEFINITIONS = Object.freeze({
   dungeonq_scenario_admit: Object.freeze({
     name: "dungeonq_scenario_admit",
     description:
-      "Admit a complete judge-authored synthetic dungeon through DungeonQ's strict validator. Available only before simulation; never grants human approval.",
+      "Admit a complete evaluator-authored synthetic scenario into this concluded Competition Profile. Available only before simulation; never grants human approval or host-diversion authority.",
     inputSchema: Object.freeze({
       type: "object",
       properties: Object.freeze({ scenarioPack: SCENARIO_PACK_INPUT_SCHEMA }),
@@ -143,6 +143,18 @@ export function createWebMcpAdapter({ modelContext, getSnapshot, handlers, onReg
   let activeNames = Object.freeze([]);
   const supported = Boolean(modelContext && typeof modelContext.registerTool === "function");
 
+  function sameNames(left, right) {
+    return left.length === right.length && left.every((name, index) => name === right[index]);
+  }
+
+  function ignoreExpectedUnregistration(result, signal) {
+    if (!result || typeof result.then !== "function") return;
+    void Promise.resolve(result).catch((error) => {
+      const expectedAbort = signal.aborted && (error?.name === "AbortError" || error?.code === "ABORT_ERR");
+      if (!expectedAbort) throw error;
+    });
+  }
+
   function dispose() {
     controller?.abort();
     controller = null;
@@ -151,14 +163,17 @@ export function createWebMcpAdapter({ modelContext, getSnapshot, handlers, onReg
   }
 
   function refresh() {
+    const nextNames = webMcpToolNamesForSnapshot(getSnapshot());
+    if (supported && controller && sameNames(activeNames, nextNames)) return activeNames;
     dispose();
     if (!supported) return activeNames;
     controller = new AbortController();
-    activeNames = webMcpToolNamesForSnapshot(getSnapshot());
+    activeNames = nextNames;
+    const registrationSignal = controller.signal;
     try {
       for (const name of activeNames) {
         const definition = TOOL_DEFINITIONS[name];
-        modelContext.registerTool(
+        const registration = modelContext.registerTool(
           {
             ...definition,
             execute: async (input) => {
@@ -176,8 +191,9 @@ export function createWebMcpAdapter({ modelContext, getSnapshot, handlers, onReg
               }
             }
           },
-          { signal: controller.signal }
+          { signal: registrationSignal }
         );
+        ignoreExpectedUnregistration(registration, registrationSignal);
       }
     } catch {
       controller.abort();

@@ -6,10 +6,16 @@ import { createStaticServer } from "../scripts/serve.mjs";
 
 const rootUrl = new URL("../public/", import.meta.url);
 
-test("judge-facing page has explicit synthetic boundary and no inline executable content", async () => {
+test("public page leads with the runtime direction and keeps the WebMCP profile boundary explicit", async () => {
   const html = await readFile(new URL("../public/index.html", import.meta.url), "utf8");
   assert.match(html, /DungeonQ/u);
-  assert.match(html, /SYNTHETIC_SIMULATION_ONLY/u);
+  assert.match(html, /defensive deception runtime/iu);
+  assert.match(html, /persistent synthetic world/iu);
+  assert.match(html, /Wrong Ticket/u);
+  assert.match(html, /WEBMCP_COMPETITION_PROFILE/u);
+  assert.match(html, /does not perform host diversion/iu);
+  assert.match(html, /https:\/\/github\.com\/Ranopha\/dungeonq-astra/u);
+  assert.match(html, /rel="noopener noreferrer"/u);
   assert.match(html, /id="scenario-editor"/u);
   assert.match(html, /id="run-simulation"/u);
   assert.match(html, /id="human-approve"/u);
@@ -21,7 +27,7 @@ test("judge-facing page has explicit synthetic boundary and no inline executable
   assert.match(html, /id="judge-guide"/u);
   assert.match(html, /id="adapter-parity"/u);
   assert.match(html, /id="adapter-digest"/u);
-  assert.match(html, /Bring your own dungeon/u);
+  assert.match(html, /Exercise the Proof Kernel/u);
   assert.match(html, /dungeonq_scenario_admit/u);
   assert.match(html, /Apache-2\.0/u);
   assert.doesNotMatch(html, /noindex/u);

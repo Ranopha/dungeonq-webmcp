@@ -1,26 +1,39 @@
-# DungeonQ
+# DungeonQ — WebMCP Competition Profile
 
-**Enter the unknown. Exit with proof.**
+> **Product direction:** DungeonQ is a defensive deception runtime. It diverts a designated suspicious human or AI session into a persistent synthetic world, lets the participant continue useful work with world-only authority, records the activity, and permits bounded adaptation under a separate operator policy.
 
-DungeonQ is a WebMCP-native synthetic security proving ground. A person or agent can bring a bounded `dungeonq.scenario/v1` environment, run the same deterministic defense engine in the browser or CLI, and inspect a replayable chain of decisions, human approval, receipts, verification, and compensation.
+This repository preserves the concluded OpenAI WebMCP Challenge profile. It is a browser-local **Proof Kernel / Competition Profile**, not the canonical product definition and not a host-integration claim. The current self-hosted reference is maintained in [`Ranopha/dungeonq-astra`](https://github.com/Ranopha/dungeonq-astra).
 
 - Live app: [dungeonq.kq7dn7jb6r.chatgpt.site](https://dungeonq.kq7dn7jb6r.chatgpt.site)
 - Demo video: [DungeonQ — Governed WebMCP Security Proving Ground](https://youtu.be/HPQ7bBFyIa0)
-- Challenge: OpenAI WebMCP Challenge
+- Challenge status: concluded; submission materials retained as historical evidence
+- Current runtime: [DungeonQ Deception Runtime](https://github.com/Ranopha/dungeonq-astra)
 - License: Apache-2.0
 - Maturity: P2 synthetically validated competition prototype
 
-> Safety boundary: every identity, signal, asset, policy, and effect is `SYNTHETIC_ONLY`. DungeonQ does not connect to real infrastructure, scan networks, execute attacks, or claim production effectiveness.
+> **This profile's boundary:** every identity, signal, asset, policy, and effect is `SYNTHETIC_ONLY` and browser／process-local. This repository does not perform host diversion, issue a persistent Wrong Ticket, preserve a world across service restart, observe a real participant, or prove production protection.
 
-![DungeonQ WebMCP-native synthetic proving ground](docs/screenshots/dungeonq-hero.png)
+![DungeonQ defensive deception runtime direction with an explicit WebMCP Competition Profile boundary](docs/screenshots/dungeonq-hero.png)
 
-For the fastest judge path, click **Run judge proof**. DungeonQ runs the Route Safety Overlay, independently replays the pack through the UI and WebMCP actor paths, proves their input／decision／proposal digests match, attempts an unapproved apply, and then stops at `APPROVAL_PENDING`. Only the visible **Human approve** control can continue.
+## Where this profile fits
 
-![Judge Quick Run stopped at the human approval gate](docs/screenshots/dungeonq-judge-quick-run.jpg)
+The canonical runtime journey is:
 
-## Why WebMCP matters here
+1. a trusted host adapter receives a request for an explicitly provisioned context;
+2. the gateway chooses `DIVERT` without falling back to origin;
+3. the participant reads and writes a persistent synthetic world;
+4. a useful Wrong Ticket authorizes bounded work only inside that world; and
+5. the operator observes activity, grants finite adaptation and checks the separate artificial-origin boundary.
 
-A visual dashboard alone can demonstrate one preloaded scenario. WebMCP lets a judge give DungeonQ a new synthetic environment and ask an agent to navigate it safely:
+This repository contributes reusable properties to that journey: strict admission, deterministic decisions, capability-shaped agent tools, separate approval, exact claims, tamper detection, compensation and replayable evidence. It does not substitute browser state for the host adapter, persistent world or independent origin check. See [Product direction](docs/PRODUCT_DIRECTION.md).
+
+For the fastest profile path, click **Run profile proof**. The page runs the Route Safety Overlay, independently replays the pack through the UI and WebMCP actor paths, proves their input／decision／proposal digests match, attempts an unapproved apply, and then stops at `APPROVAL_PENDING`. Only the visible **Human approve** control can continue.
+
+![WebMCP profile proof stopped at the human approval gate](docs/screenshots/dungeonq-judge-quick-run.jpg)
+
+## What WebMCP proves here
+
+A visual dashboard alone can demonstrate one preloaded scenario. In this retained profile, WebMCP lets an evaluator give the Proof Kernel a new synthetic environment and ask an agent to navigate it safely:
 
 1. `dungeonq_scenario_admit` validates the complete Scenario Pack through the same authoritative admission path as the UI and CLI.
 2. `dungeonq_simulate` creates the deterministic decision and proposal.
@@ -94,7 +107,7 @@ npm run check     # all of the above
 npm run dev       # Sites-compatible local preview
 ```
 
-See `docs/JUDGING_MAP.md` for a short live-demo route and an honest claim matrix.
+See `docs/JUDGING_MAP.md` for the retained profile route and an honest claim matrix.
 
 ## Repository map
 
@@ -109,6 +122,6 @@ See `docs/JUDGING_MAP.md` for a short live-demo route and an honest claim matrix
 
 ## Current maturity and release boundary
 
-Current status: **public P2 synthetically validated competition prototype**. It proves deterministic contract behavior within browser-local synthetic state. It does not prove production isolation, identity, cryptographic key custody, immutable external storage, real PEP behavior, or field effectiveness.
+Current status: **public P2 synthetically validated WebMCP Competition Profile**. It proves deterministic contract behavior within browser-local synthetic state. It does not prove host integration, diversion, persistence, production isolation, identity, cryptographic key custody, immutable external storage, real PEP behavior or field effectiveness.
 
 The public standalone source is licensed under Apache-2.0. The npm package remains `private: true` only to prevent accidental registry publication; it is unrelated to GitHub repository visibility. See [SECURITY.md](SECURITY.md), [docs/TESTING.md](docs/TESTING.md), and [docs/JUDGING_MAP.md](docs/JUDGING_MAP.md).

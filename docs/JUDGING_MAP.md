@@ -1,9 +1,11 @@
-# Judge map and honest claims
+# Retained WebMCP profile route and honest claims
+
+The OpenAI WebMCP Challenge has concluded. This route remains reproducible evidence for the browser-local Proof Kernel. The current DungeonQ product direction is the [defensive deception runtime](https://github.com/Ranopha/dungeonq-astra); this page does not perform its host diversion or persistent-world journey.
 
 ## Three-minute live route
 
 1. **Problem and boundary, 20 seconds** — Point to `SYNTHETIC_SIMULATION_ONLY`: security automation needs proof and human authority, not another autonomous black box.
-2. **Fast proof or WebMCP-native admission, 30 seconds** — Click **Run judge proof** to run Overlay, adapter parity, and an unapproved-apply probe before stopping at the human gate. Alternatively, ask the agent to call `dungeonq_scenario_admit` with a judge-authored pack and simulate it.
+2. **Fast proof or WebMCP-native admission, 30 seconds** — Click **Run profile proof** to run Overlay, adapter parity, and an unapproved-apply probe before stopping at the human gate. Alternatively, ask the agent to call `dungeonq_scenario_admit` with an evaluator-authored pack and simulate it.
 3. **Human-agent gate, 45 seconds** — Let the agent request review. Observe that it has no approval tool. Use the visible Human approve control; then ask the agent to apply and verify the receipt.
 4. **Recovery with proof, 30 seconds** — Ask the agent to compensate. Show that the original receipt remains and a linked compensation receipt is appended.
 5. **Adversarial failure, 25 seconds** — Load Compound edge failure. Missing edge context forces `DENY`, and failure composition only removes capabilities.
@@ -23,6 +25,8 @@
 | Rollback preserves prior evidence | Demonstrated locally | compensation receipt and audit assertions |
 | Third parties and agents can bring a simulation | Demonstrated locally and in public app | Browser import, `dungeonq_scenario_admit`, JSON Schema, CLI path input |
 | Works without WebMCP | Demonstrated locally | ordinary Web controls remain complete |
+| Host integration／session diversion | Not implemented in this profile | Current server-side reference is maintained separately |
+| Persistent synthetic world／Wrong Ticket | Not implemented in this profile | Browser-local state is not counted as runtime evidence |
 | Production isolation／identity／storage | Not claimed | No production integration in this profile |
 | Real-world deception effectiveness | Not claimed | Requires an authorized field evaluation |
 

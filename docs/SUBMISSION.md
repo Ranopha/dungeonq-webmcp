@@ -1,5 +1,7 @@
 # DungeonQ — OpenAI WebMCP Challenge submission
 
+> **Historical submission record.** The challenge has concluded. This file preserves the submitted competition story and must not be read as the current DungeonQ product definition. DungeonQ is now presented as a defensive deception runtime; this repository is its browser-local Proof Kernel / Competition Profile. See [PRODUCT_DIRECTION.md](PRODUCT_DIRECTION.md) and the [current runtime source](https://github.com/Ranopha/dungeonq-astra).
+
 ## Tagline
 
 Enter the unknown. Exit with proof.
@@ -57,7 +59,7 @@ The strongest human-agent experiences are not necessarily the ones with the most
 
 ## What's next
 
-DungeonQ deliberately stops at synthetic validation. A production path would require independently attested signals, durable state and claims, external evidence checkpoints, verified human identity, real policy distribution, isolated effect infrastructure, clock trust, and field acceptance. Those are future gates, not claims hidden behind a polished demo.
+The competition profile deliberately stops at synthetic validation. The later DungeonQ reference implements a separately documented server-side diversion journey with persistent artificial resources; it remains an owned synthetic reference rather than a production-protection claim. Production use still requires an authorized connector, detection and identity integration, legitimate-traffic continuity, recovery and environment-specific acceptance.
 
 ## Links
 

@@ -267,7 +267,7 @@ async function activateScenario(candidate) {
   lastEvidence = null;
   lastAdapterParity = null;
   editorDirty = false;
-  ui.judgeGuide.textContent = "Runs Overlay → adapter parity → blocked apply → review request, then stops for a human.";
+  ui.judgeGuide.textContent = "Runs this profile's overlay → adapter parity → blocked apply → review request, then stops for a human.";
   delete ui.judgeGuide.dataset.tone;
   ui.adversarialResult.textContent = "Run a simulation to unlock a negative proof.";
   delete ui.adversarialResult.dataset.tone;
